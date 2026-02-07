@@ -1,17 +1,37 @@
 const express = require('express')
 const router = express.Router()
 
+
 router.use(userlogger) // this makes global for this router . So method which uses this router calls the userLogger
 
 router.get("/", (req, res) => {
 
+    const query_parameter = req.query.name;
+    console.log(query_parameter);
     res.send("Users list");
 })
 
 
+router.get("/new", (req, res) => {
+
+    res.render("users/new.ejs")
+
+})
+
 
 router.post("/", (req, res) => {
-    res.send("User Created");
+    const isValid = true;
+
+    if (isValid) {
+        users.push({ firstName: req.body.firstName });
+        res.redirect(`/users/${users.length - 1}`)
+    }
+    else {
+        console.log("Error");
+        res.render("users/new.ejs", { firstName: req.body.firstName });
+    }
+
+    console.log(req.body.firstName);
 })
 
 router

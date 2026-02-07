@@ -1,8 +1,9 @@
 const express = require('express')
 
 const app = express()
-app.set("View engine", "ejs")
+app.set("view engine", "ejs")
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 //logger is mentioned inside the function as param to call middleware individually instead of make middle ware as global to app
 app.get("/", logger, (req, res) => {

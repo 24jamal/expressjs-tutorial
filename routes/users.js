@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+router.use(userlogger) // this makes global for this router . So method which uses this router calls the userLogger
 
 router.get("/", (req, res) => {
 
@@ -57,6 +58,12 @@ router.param("id", (req, res, next, id) => {
     next() //this routes to corresponding function
 })
 
+function userlogger(req, res, next) {
+    const url = req.originalUrl;
+    console.log(` USER Route URL :: ${url}`);
+    console.log("This is postlogger for logs")
+    next()
+}
 
 
 
